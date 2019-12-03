@@ -70,6 +70,7 @@ export type DomPopmotionConfig = {
   hoverable?: boolean;
   dragBounds?: DragBounds | ((props: ResolverProps) => DragBounds);
   props?: { [key: string]: any };
+  posePrefix?: string;
   [key: string]: any;
 };
 

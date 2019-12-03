@@ -41,6 +41,10 @@ const makeUIEventApplicator = ({
   poser,
   config
 ) => {
+  // Optional - add prefix to event name, e.g. "parenthover"
+  const startPoseName = config.posePrefix
+    ? config.posePrefix + startPose
+    : startPose;
   const startListener = startPose + 'Start';
   const endListener = startPose + 'End';
   const moveListener = startPose + 'Move';
@@ -57,7 +61,7 @@ const makeUIEventApplicator = ({
   const eventStartListener = listen(element, startEvents).start(
     (startEvent: MouseEvent | TouchEvent) => {
       poser.unset(endPose);
-      poser.set(startPose);
+      poser.set(startPoseName);
 
       if (startCallback && config[startCallback])
         config[startCallback](startEvent);
@@ -78,7 +82,7 @@ const makeUIEventApplicator = ({
 
         activeActions.get(endListener).stop();
 
-        poser.unset(startPose);
+        poser.unset(startPoseName);
         poser.set(endPose);
         if (endCallback && config[endCallback]) config[endCallback](endEvent);
       });
